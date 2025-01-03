@@ -1,0 +1,5 @@
+DB_HOST = 127.0.0.1
+DB_USERNAME = root
+DB_PASSWORD = minhha2k3
+DB_NAME = swg_db
+DB_PORT = 3306
