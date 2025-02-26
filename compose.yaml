@@ -1,0 +1,37 @@
+
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_USERNAME: root
+      DB_PASSWORD: minhha2k3
+      DB_NAME: swg_db
+      DB_PORT: 3306
+    ports:
+      - "3001:3001"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: minhha2k3
+      MYSQL_DATABASE: swg_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  db-data:
